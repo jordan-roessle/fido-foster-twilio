@@ -2,5 +2,18 @@
   "extends": "./tsconfig.base.json",
   "compileOnSave": false,
   "files": [],
-  "references": []
+  "references": [
+    {
+      "path": "./apps/ui"
+    },
+    {
+      "path": "./apps/serverless/auth"
+    },
+    {
+      "path": "./apps/serverless/send"
+    },
+    {
+      "path": "./libs/common"
+    }
+  ]
 }

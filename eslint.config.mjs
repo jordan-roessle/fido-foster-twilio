@@ -3,7 +3,7 @@ import tseslint from 'typescript-eslint';
 import configPrettier from 'eslint-config-prettier';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
-import {nxEslintPlugin} from '@nx/eslint-plugin';
+import nxEslintPlugin from '@nx/eslint-plugin';
 
 export default tseslint.config(
   js.configs.recommended,
@@ -17,7 +17,7 @@ export default tseslint.config(
       '@nx/enforce-module-boundaries': [
         'error',
         {
-          enforceBuildableLibDependencyConstraints: true,
+          enforceBuildableLibDependency: true,
           allow: [],
           depConstraints: [
             {
