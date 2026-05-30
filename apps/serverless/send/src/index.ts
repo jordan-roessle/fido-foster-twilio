@@ -18,7 +18,7 @@ const requiredEnvVars = [
   'GOOGLE_SHEET_ID',
   'GOOGLE_CREDENTIALS',
   'SEND_TWILIO',
-  'MEDIA_BUCKET_NAME'
+  'MEDIA_BUCKET_URL',
 ];
 
 const SHEET_RANGE = 'Contacts!A:E';
@@ -144,7 +144,9 @@ export const handler = async (event: APIGatewayProxyEventV2) => {
   }
 
   if (env.SEND_TWILIO !== 'true') {
-    return;
+    return generateApiGatewayResponse(StatusCodes.OK, {
+      message: `Twilio disabled - would have sent to ${phoneNumbers.length} recipient(s)`,
+    });
   }
 
   // Send messages via Twilio
@@ -159,7 +161,7 @@ export const handler = async (event: APIGatewayProxyEventV2) => {
           to,
           ...(imageKey && {
             mediaUrl: [`${env.MEDIA_BUCKET_URL}/${imageKey}`],
-          })
+          }),
         }),
       ),
     );

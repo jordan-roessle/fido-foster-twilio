@@ -11,8 +11,13 @@ import {
 
 const s3 = new S3Client({region: 'us-east-1'});
 
-const ALLOWED_CONTENT_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-const IMAGE_EXPIRATION = 300 // 5 minutes
+const ALLOWED_CONTENT_TYPES = [
+  'image/jpeg',
+  'image/png',
+  'image/gif',
+  'image/webp',
+];
+const IMAGE_EXPIRATION = 300; // 5 minutes
 
 const EXTENSION_MAP: Record<string, string> = {
   'image/jpeg': 'jpg',
@@ -85,6 +90,8 @@ export const handler = async (event: APIGatewayProxyEventV2) => {
     ContentType: contentType,
   });
 
-  const uploadUrl = await getSignedUrl(s3, command, {expiresIn: IMAGE_EXPIRATION})
+  const uploadUrl = await getSignedUrl(s3, command, {
+    expiresIn: IMAGE_EXPIRATION,
+  });
   return generateApiGatewayResponse(StatusCodes.OK, {uploadUrl, imageKey});
 };

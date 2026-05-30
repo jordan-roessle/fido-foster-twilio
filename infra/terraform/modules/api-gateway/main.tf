@@ -90,3 +90,26 @@ resource "aws_lambda_permission" "send" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.main.execution_arn}/*/*"
 }
+
+# --- Upload Lambda integration ---
+
+resource "aws_apigatewayv2_integration" "upload" {
+  api_id                 = aws_apigatewayv2_api.main.id
+  integration_type       = "AWS_PROXY"
+  integration_uri        = var.upload_lambda_invoke_arn
+  payload_format_version = "2.0"
+}
+
+resource "aws_apigatewayv2_route" "upload" {
+  api_id    = aws_apigatewayv2_api.main.id
+  route_key = "POST /upload-url"
+  target    = "integrations/${aws_apigatewayv2_integration.upload.id}"
+}
+
+resource "aws_lambda_permission" "upload" {
+  statement_id  = "AllowAPIGatewayInvoke"
+  action        = "lambda:InvokeFunction"
+  function_name = var.upload_lambda_function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_apigatewayv2_api.main.execution_arn}/*/*"
+}

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, {AxiosProgressEvent} from 'axios';
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -44,7 +44,7 @@ export const uploadImage = async (
 ): Promise<void> => {
   await axios.put(uploadUrl, file, {
     headers: {'Content-Type': file.type},
-    onUploadProgress: (e: any) => { // revisit
+    onUploadProgress: (e: AxiosProgressEvent) => {
       if (onProgress && e.total) {
         onProgress(Math.round((e.loaded / e.total) * 100));
       }

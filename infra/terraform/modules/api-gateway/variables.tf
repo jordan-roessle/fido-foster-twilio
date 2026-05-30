@@ -32,3 +32,13 @@ variable "send_lambda_function_name" {
   description = "Function name of the send Lambda"
   type        = string
 }
+
+variable "upload_lambda_invoke_arn" {
+  description = "Invoke ARN of the upload Lambda"
+  type        = string
+}
+
+variable "upload_lambda_function_name" {
+  description = "Function name of the upload Lambda"
+  type        = string
+}

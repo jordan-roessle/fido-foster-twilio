@@ -69,3 +69,26 @@ resource "aws_cloudwatch_log_group" "lambda" {
   name              = "/aws/lambda/${aws_lambda_function.this.function_name}"
   retention_in_days = 14
 }
+
+
+resource "aws_iam_policy" "s3_put" {
+  count = var.media_bucket_arn != "" ? 1 : 0
+  name  = "${var.app_name}-${var.function_name}-s3-put"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect   = "Allow"
+        Action   = ["s3:PutObject"]
+        Resource = "${var.media_bucket_arn}/*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "s3_put" {
+  count      = var.media_bucket_arn != "" ? 1 : 0
+  role       = aws_iam_role.lambda.name
+  policy_arn = aws_iam_policy.s3_put[0].arn
+}

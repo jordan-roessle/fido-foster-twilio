@@ -17,3 +17,13 @@ output "api_endpoint" {
   description = "API Gateway base URL"
   value       = module.api_gateway.api_endpoint
 }
+
+output "media_bucket_name" {
+  description = "Media S3 bucket name"
+  value       = module.media.media_bucket_name
+}
+
+output "media_bucket_url" {
+  description = "Media bucket base URL"
+  value       = module.media.media_bucket_url
+}

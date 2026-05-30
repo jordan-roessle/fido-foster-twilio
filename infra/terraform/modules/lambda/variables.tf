@@ -43,3 +43,9 @@ variable "artifact_path" {
   description = "Path to the zipped Lambda artifact"
   type        = string
 }
+
+variable "media_bucket_arn" {
+  description = "ARN of the media bucket (optional, for upload Lambda only)"
+  type        = string
+  default     = ""
+}
