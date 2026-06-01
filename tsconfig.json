@@ -17,6 +17,9 @@
     },
     {
       "path": "./apps/serverless/upload"
+    },
+    {
+      "path": "./apps/serverless/webhook"
     }
   ]
 }

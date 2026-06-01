@@ -10,6 +10,7 @@
     "deploy:lambda:auth": "tsx scripts/build-lambda.ts --lambda auth && aws lambda update-function-code --function-name fido-foster-twilio-auth --zip-file fileb://apps/serverless/auth/dist/main.zip --region us-east-1",
     "deploy:lambda:send": "tsx scripts/build-lambda.ts --lambda send && aws lambda update-function-code --function-name fido-foster-twilio-send --zip-file fileb://apps/serverless/send/dist/main.zip --region us-east-1",
     "deploy:lambda:upload": "tsx scripts/build-lambda.ts --lambda upload && aws lambda update-function-code --function-name fido-foster-twilio-upload --zip-file fileb://apps/serverless/upload/dist/main.zip --region us-east-1",
+    "deploy:lambda:webhook": "tsx scripts/build-lambda.ts --lambda webhook && aws lambda update-function-code --function-name fido-foster-twilio-webhook --zip-file fileb://apps/serverless/webhook/dist/main.zip --region us-east-1",
     "deploy:ui": "nx build ui && aws s3 sync apps/ui/dist s3://fido-foster-twilio-frontend-prod --delete --region us-east-1 && aws cloudfront create-invalidation --distribution-id ED9301C643QPL --paths /* --region us-east-1"
   },
   "private": true,
@@ -36,6 +37,7 @@
     "@types/jest": "~30.0.0",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20.19.9",
+    "@types/qs": "^6.15.1",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^6.0.0",
@@ -80,6 +82,7 @@
     "axios": "^1.16.1",
     "googleapis": "^172.0.0",
     "jsonwebtoken": "^9.0.3",
+    "qs": "^6.15.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "twilio": "^6.0.2"

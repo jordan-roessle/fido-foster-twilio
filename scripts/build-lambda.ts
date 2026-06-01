@@ -10,7 +10,7 @@ const main = async () => {
     .parse(process.argv);
 
   const {lambda} = program.opts();
-  const allLambdas = ['auth', 'send', 'upload'];
+  const allLambdas = ['auth', 'send', 'upload', 'webhook'];
   const lambdas = lambda ? [lambda] : allLambdas;
 
   if (lambda && !allLambdas.includes(lambda)) {

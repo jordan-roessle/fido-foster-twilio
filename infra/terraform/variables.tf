@@ -66,3 +66,13 @@ variable "send_twilio" {
   type        = string
   default     = "false"
 }
+
+variable "notification_phone_number" {
+  description = "Phone number to forward inbound replies to"
+  type        = string
+}
+
+variable "api_gateway_id" {
+  description = "API Gateway ID for webhook URL construction"
+  type        = string
+}

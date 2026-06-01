@@ -42,3 +42,13 @@ variable "upload_lambda_function_name" {
   description = "Function name of the upload Lambda"
   type        = string
 }
+
+variable "webhook_lambda_invoke_arn" {
+  description = "Invoke ARN of the webhook Lambda"
+  type        = string
+}
+
+variable "webhook_lambda_function_name" {
+  description = "Function name of the webhook Lambda"
+  type        = string
+}

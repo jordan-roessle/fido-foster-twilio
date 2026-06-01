@@ -64,6 +64,26 @@ module "upload_lambda" {
   media_bucket_arn = module.media.media_bucket_arn
 }
 
+module "webhook_lambda" {
+  source = "./modules/lambda"
+
+  app_name      = var.app_name
+  function_name = "webhook"
+  artifact_path = "../../apps/serverless/webhook/dist/main.zip"
+
+  environment_variables = {
+    ALLOWED_ORIGIN               = "https://${var.domain_name}"
+    TWILIO_ACCOUNT_SID           = var.twilio_account_sid
+    TWILIO_AUTH_TOKEN            = var.twilio_auth_token
+    TWILIO_MESSAGING_SERVICE_SID = var.twilio_messaging_service_sid
+    NOTIFICATION_PHONE_NUMBER    = var.notification_phone_number
+    WEBHOOK_URL                  = "https://${var.api_gateway_id}.execute-api.us-east-1.amazonaws.com/prod/webhook"
+    NODE_ENV                     = var.environment
+    GOOGLE_SHEET_ID              = var.google_sheet_id
+    GOOGLE_CREDENTIALS           = var.google_credentials
+  }
+}
+
 module "api_gateway" {
   source = "./modules/api-gateway"
 
@@ -71,12 +91,14 @@ module "api_gateway" {
   environment = var.environment
   domain_name = var.domain_name
 
-  auth_lambda_invoke_arn      = module.auth_lambda.invoke_arn
-  auth_lambda_function_name   = module.auth_lambda.function_name
-  send_lambda_invoke_arn      = module.send_lambda.invoke_arn
-  send_lambda_function_name   = module.send_lambda.function_name
-  upload_lambda_invoke_arn    = module.upload_lambda.invoke_arn
-  upload_lambda_function_name = module.upload_lambda.function_name
+  auth_lambda_invoke_arn       = module.auth_lambda.invoke_arn
+  auth_lambda_function_name    = module.auth_lambda.function_name
+  send_lambda_invoke_arn       = module.send_lambda.invoke_arn
+  send_lambda_function_name    = module.send_lambda.function_name
+  upload_lambda_invoke_arn     = module.upload_lambda.invoke_arn
+  upload_lambda_function_name  = module.upload_lambda.function_name
+  webhook_lambda_invoke_arn    = module.webhook_lambda.invoke_arn
+  webhook_lambda_function_name = module.webhook_lambda.function_name
 }
 
 module "media" {
